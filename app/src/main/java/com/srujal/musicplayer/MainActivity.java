@@ -1,22 +1,20 @@
 package com.srujal.musicplayer;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.srujal.musicplayer.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     ActivityMainBinding binding;
+    boolean doubletab = false;
     BottomNavigationView navigationView;
 
     @Override
@@ -37,21 +35,36 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.home){
-            item.setIcon(R.drawable.home);
             getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, homeFragment).commit();
         }
         if (item.getItemId() == R.id.search){
-            item.setIcon(R.drawable.search);
             getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, searchFragment).commit();
         }
         if (item.getItemId() == R.id.library){
-            item.setIcon(R.drawable.library);
             getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, libraryFragment).commit();
         }
         if (item.getItemId() == R.id.premium){
-            item.setIcon(R.drawable.premium);
             getSupportFragmentManager().beginTransaction().replace(R.id.home_fragment, premiumFragment).commit();
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed(){
+        if (doubletab){
+            finishAffinity();
+            super.onBackPressed();
+        }
+        else {
+            doubletab = true;
+            Toast.makeText(MainActivity.this, "Press again to exit app", Toast.LENGTH_SHORT).show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubletab = false;
+                }
+            },2000);// Reset doubleTab after 2 seconds
+        }
     }
 }

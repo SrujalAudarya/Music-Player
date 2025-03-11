@@ -1,11 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.MusicPlayer" parent="Theme.AppCompat.DayNight">
+    <style name="Base.Theme.MusicPlayer" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">#0B0016</item> <!-- Status bar in dark mode -->
+        <item name="android:navigationBarColor">@color/background_color</item> <!-- Navigation bar in dark mode -->
     </style>
 
-    <style name="NoActionBar" parent="Theme.AppCompat.Light.NoActionBar"/>
+    <style name="NoActionBar" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimaryVariant">#1F1F1F</item>
+    </style>
 
     <style name="Theme.MusicPlayer" parent="Base.Theme.MusicPlayer" />
 </resources>
